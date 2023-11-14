@@ -555,12 +555,10 @@ export async function POST(req) {
     });
 	const res = completion.choices[0].message.content
 	const duty = res.split('TASKS:')[0].trim().split('DUTY:')[1].trim();
-    // duty_part = response.split('TASKS:')[0].strip()
-    // duty = duty_part.split('DUTY:')[1].strip()
-    // tasks_part = response.split('TASKS:')[1].strip()
-    // tasks = eval(tasks_part)  # using eval to convert string list representation to actual list
+	const tasksPart = response.split('TASKS:')[1].trim();
+	const tasks = tasksPart.slice(1, -1).split(',').map(task => task.trim().replace(/^['"]|['"]$/g, ''));
 
-    return NextResponse.json({ response: duty});
+    return NextResponse.json({ response: tasks});
     // console.log(req)
     // const data = await req.json()
 
