@@ -571,7 +571,7 @@ export async function POST(req) {
 		taskRes.push(completion.choices[0].message.content);
 	})
 
-    return NextResponse.json({ Tasks: taskRes.push(completion.choices[0].message.content)});
+    return NextResponse.json({ Tasks: taskRes });
     // console.log(req)
     // const data = await req.json()
 
