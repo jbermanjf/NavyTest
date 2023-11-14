@@ -553,12 +553,14 @@ export async function POST(req) {
         messages: messages,
         model: "gpt-4-1106-preview",
     });
+	const res = completion.choices[0].message.content
+	const duty = res.split('TASKS:')[0].trim().split('DUTY:')[1].trim();
     // duty_part = response.split('TASKS:')[0].strip()
     // duty = duty_part.split('DUTY:')[1].strip()
     // tasks_part = response.split('TASKS:')[1].strip()
     // tasks = eval(tasks_part)  # using eval to convert string list representation to actual list
 
-    return NextResponse.json({ response: completion.choices[0]});
+    return NextResponse.json({ response: duty});
     // console.log(req)
     // const data = await req.json()
 
