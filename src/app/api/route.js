@@ -559,7 +559,7 @@ export async function POST(req) {
 	const tasks = tasksPart.slice(1, -1).split(',').map(task => task.trim().replace(/^['"]|['"]$/g, ''));
 
 	if(tasks.length <= 0) return NextResponse.json({ response: "No tasks found try again"})
-	taskRes = []
+	const taskRes = []
 
 	tasks.map(async task => {
 		let taskMsg = taskStructure;
