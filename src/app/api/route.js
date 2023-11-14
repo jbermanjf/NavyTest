@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import OpenAI from "openai";
+import { sleep } from 'openai/core.mjs';
 
 const model = `TASK ANALYSIS 																																										
 NTP / RRL	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL	NTP / RRL	NTP / RRL	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL	NTP / RRL	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL	NTP / RRL / CPM	NTP / RRL	NTP / RRL / CPM	NTP / RRL	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL / CPM	NTP / RRL	NTP / RRL	NTP / RRL	NTP / RRL	NTP / RRL
@@ -569,6 +570,7 @@ export async function POST(req) {
 			model: "gpt-4-1106-preview",
 		});
 		taskRes.push(completion.choices[0].message.content);
+		await sleep(1000)
 	})
 
     return NextResponse.json({ Tasks: taskRes });
