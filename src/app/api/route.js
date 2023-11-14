@@ -546,6 +546,22 @@ export async function GET() {
     return NextResponse.json({route: "exists"});
 }
 
+async function Read9cTasks(tasks) {
+	const taskRes = []
+	console.log(tasks.length)
+	tasks.map(async task => {
+		let taskMsg = taskStructure;
+		taskMsg.push({"role": "user", "content": `Can we fill it out for ${task} under the rating/skill/school ${duty}` });
+		let completion = await openai.chat.completions.create({
+			messages: taskMsg,
+			model: "gpt-4-1106-preview",
+		});
+		taskRes.push(completion.choices[0].message.content);
+		await sleep(1000);
+	})
+	return taskRes;
+}
+
 export async function POST(req) {
     const data = await req.json()
     let messages = defaultStructure;
@@ -569,17 +585,3 @@ export async function POST(req) {
     // console.log();
   }
 
-  async function Read9cTasks(tasks) {
-	const taskRes = []
-	console.log(tasks.length)
-	tasks.map(async task => {
-		let taskMsg = taskStructure;
-		taskMsg.push({"role": "user", "content": `Can we fill it out for ${task} under the rating/skill/school ${duty}` });
-		let completion = await openai.chat.completions.create({
-			messages: taskMsg,
-			model: "gpt-4-1106-preview",
-		});
-		taskRes.push(completion.choices[0].message.content);
-		await sleep(1000)
-	})
-  }
