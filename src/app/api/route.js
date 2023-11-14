@@ -558,7 +558,20 @@ export async function POST(req) {
 	const tasksPart = res.split('TASKS:')[1].trim();
 	const tasks = tasksPart.slice(1, -1).split(',').map(task => task.trim().replace(/^['"]|['"]$/g, ''));
 
-    return NextResponse.json({ response: tasks});
+	if(tasks.length <= 0) return NextResponse.json({ response: "No tasks found try again"})
+	taskRes = []
+
+	tasks.map(async task => {
+		let taskMsg = taskStructure;
+		taskMsg.push({"role": "user", "content": `Can we fill it out for ${task} under the rating/skill/school ${duty}` });
+		let completion = await openai.chat.completions.create({
+			messages: taskMsg,
+			model: "gpt-4-1106-preview",
+		});
+		taskRes.push(completion.choices[0].message.content);
+	})
+
+    return NextResponse.json({ Tasks: taskRes.push(completion.choices[0].message.content)});
     // console.log(req)
     // const data = await req.json()
 
