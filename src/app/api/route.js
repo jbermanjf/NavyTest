@@ -560,8 +560,18 @@ export async function POST(req) {
 	const tasks = tasksPart.slice(1, -1).split(',').map(task => task.trim().replace(/^['"]|['"]$/g, ''));
 
 	if(tasks.length <= 0) return NextResponse.json({ response: "No tasks found try again"})
-	const taskRes = []
 
+	const taskRes = await Read9cTasks(tasks);
+    return NextResponse.json({ Tasks: taskRes });
+    // console.log(req)
+    // const data = await req.json()
+
+    // console.log();
+  }
+
+  async function Read9cTasks(tasks) {
+	const taskRes = []
+	console.log(tasks.length)
 	tasks.map(async task => {
 		let taskMsg = taskStructure;
 		taskMsg.push({"role": "user", "content": `Can we fill it out for ${task} under the rating/skill/school ${duty}` });
@@ -572,10 +582,4 @@ export async function POST(req) {
 		taskRes.push(completion.choices[0].message.content);
 		await sleep(1000)
 	})
-
-    return NextResponse.json({ Tasks: taskRes });
-    // console.log(req)
-    // const data = await req.json()
-
-    // console.log();
   }
