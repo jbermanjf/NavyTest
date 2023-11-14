@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import OpenAI from "openai";
-import { readFileSync } from 'fs';
-import path from 'path';
-import { model, defs } from './const'
+import { model, defs } from '@/const'
 
 const openai = new OpenAI();
 
