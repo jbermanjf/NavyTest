@@ -23,7 +23,7 @@ export default function Home() {
       setSubmitted(true);
   
       try {
-        const response = await fetch('https://us-central1-navytrainingtest.cloudfunctions.net/function-1', {
+        const response = await fetch('/api/main.py', {
           // const response = await fetch('https://us-east4-navytrainingtest.cloudfunctions.net/ask-9c-result', {
           method: 'POST',
           headers: {
