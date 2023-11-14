@@ -541,8 +541,8 @@ No	Job	SPL2	Y2Q2	2 - Intermediate	2 - Not Being Trained	PQS	CVN	Applicable Publi
 //     {"role": "system", "content": "Output should be simple DUTY: 'DEFINE THE DUTY', TASKS: [ARRAY OF TASKS] (e.g. DUTY: 'FIRST MATE', TASKS: ['Guide the ship',\n 'Organize the Crew',\n etc.])" },
 // ]
 
-export async function GET() {
-    // const data = await req.json()
+export async function POST(req) {
+    const data = await req.json()
     // let messages = defaultStructure;
     // messages.push({"role": "user", "content": data.data });
     // const completion = await openai.chat.completions.create({
@@ -554,7 +554,7 @@ export async function GET() {
     // tasks_part = response.split('TASKS:')[1].strip()
     // tasks = eval(tasks_part)  # using eval to convert string list representation to actual list
 
-    return NextResponse.json({ok: "check"});
+    return NextResponse.json(data);
     // console.log(req)
     // const data = await req.json()
 
