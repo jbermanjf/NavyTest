@@ -23,7 +23,7 @@ export default function Home() {
       setSubmitted(true);
   
       try {
-        const response = await fetch('/api/index', {
+        const response = await fetch('https://navy-test-omega.vercel.app/api/index', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
