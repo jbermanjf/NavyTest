@@ -547,7 +547,7 @@ export async function GET() {
 }
 
 async function Read9cTasks(tasks, duty) {
-	const taskRes = []
+	let taskRes = []
 	console.log(tasks.length)
 	tasks.map(async task => {
 		let taskMsg = taskStructure;
@@ -556,7 +556,7 @@ async function Read9cTasks(tasks, duty) {
 			messages: taskMsg,
 			model: "gpt-4-1106-preview",
 		});
-		taskRes.push(completion.choices[0].message.content);
+		taskRes.push();
 		await sleep(1000);
 	})
 	return taskRes;
