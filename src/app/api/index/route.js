@@ -541,6 +541,10 @@ No	Job	SPL2	Y2Q2	2 - Intermediate	2 - Not Being Trained	PQS	CVN	Applicable Publi
 //     {"role": "system", "content": "Output should be simple DUTY: 'DEFINE THE DUTY', TASKS: [ARRAY OF TASKS] (e.g. DUTY: 'FIRST MATE', TASKS: ['Guide the ship',\n 'Organize the Crew',\n etc.])" },
 // ]
 
+export async function GET() {
+    return NextResponse.json({route: "exists"});
+}
+
 export async function POST(req) {
     const data = await req.json()
     // let messages = defaultStructure;
