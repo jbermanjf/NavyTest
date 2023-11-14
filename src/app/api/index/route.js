@@ -22,6 +22,7 @@ const defaultStructure = [
 
 export async function POST(req, res) {
     const messages = defaultStructure;
+    const data = await req.json()
     messages.append({"role": "user", "content": data });
     const completion = await openai.chat.completions.create({
         messages: messages,
