@@ -546,7 +546,7 @@ export async function GET() {
     return NextResponse.json({route: "exists"});
 }
 
-async function Read9cTasks(tasks) {
+async function Read9cTasks(tasks, duty) {
 	const taskRes = []
 	console.log(tasks.length)
 	tasks.map(async task => {
@@ -577,7 +577,7 @@ export async function POST(req) {
 
 	if(tasks.length <= 0) return NextResponse.json({ response: "No tasks found try again"})
 
-	const taskRes = await Read9cTasks(tasks);
+	const taskRes = await Read9cTasks(tasks, duty);
     return NextResponse.json({ Tasks: taskRes });
     // console.log(req)
     // const data = await req.json()
