@@ -24,7 +24,6 @@ export default function Home() {
   
       try {
         const response = await fetch('/api/index', {
-          // const response = await fetch('https://us-east4-navytrainingtest.cloudfunctions.net/ask-9c-result', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
