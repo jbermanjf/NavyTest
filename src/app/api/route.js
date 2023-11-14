@@ -556,9 +556,8 @@ export async function POST(req) {
 	const res = completion.choices[0].message.content
 	const duty = res.split('TASKS:')[0].trim().split('DUTY:')[1].trim();
 	const tasksPart = response.split('TASKS:')[1].trim();
-	const tasks = tasksPart.slice(1, -1).split(',').map(task => task.trim().replace(/^['"]|['"]$/g, ''));
 
-    return NextResponse.json({ response: tasks});
+    return NextResponse.json({ response: tasksPart});
     // console.log(req)
     // const data = await req.json()
 
