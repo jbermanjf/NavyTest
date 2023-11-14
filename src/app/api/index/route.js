@@ -2,13 +2,13 @@ import { NextResponse } from 'next/server';
 import OpenAI from "openai";
 import { readFileSync } from 'fs';
 import path from 'path';
-import { model, def } from './const'
+import { model, defs } from './const'
 
 const openai = new OpenAI();
 
 const taskStructure = [
     {"role": "system", "content": model },
-    {"role": "system", "content": `Here are some of the defs related to the model: ${def}` },
+    {"role": "system", "content": `Here are some of the defs related to the model: ${defs}` },
     {"role": "system", "content": "Any portions that refer to a SME or need a SME or a stakeholder, don't answer just put 'SME Required' or 'Stakeholder Required'" },
     {"role": "system", "content": "Headings are as follows:Analysis UID,Type,Skill Text,Additional Notes,Proficiency Level,SPL Definition,OCCSTD Task ID,Career Progression Timing,Career Progression Timing (etc.),Task is performed during SEA1 (Sea Shore Flow Tour 1),Task Level,Status of Training,Type of Training,Object(s),Condition,Standard,Starting Cues,Ending Cues,Task Source,Knowledge,Skills,Abilities,Tools,Resources,Location,Safety Hazard Severity,What is the Safety Hazard when performing the task?,Criticality of Performance,Why is task critical?,Task Delay Tolerance,Frequency of Performance,Probability of Inadequate Performance Due to Training,Difficulty of Performance,Why is task difficult?,Task Learning Difficulty,Percent Performing ,Percentage of Time Spent on Performance within the Job,Immediacy of Performance,T/NT Recommendation (DIF Model),SME Train/No Train Recommendation,Rationale for SME Train/No Train Recommendation,Stakeholder Train/No Train Decision,Rationale for Stakeholder Train/No Train Decision" },
     {"role": "system", "content": "Return only the analysis, in csv format, maintain the order but no headings, no fluff or extra words, simply the required csv structure" },
@@ -21,9 +21,9 @@ const defaultStructure = [
 ]
 
 export async function POST(req, res) {
-    const messages = defaultStructure;
     const data = await req.json()
-    messages.append({"role": "user", "content": data });
+    let messages = defaultStructure;
+    messages.push({"role": "user", "content": data.data });
     const completion = await openai.chat.completions.create({
         messages: messages,
         model: "gpt-4-1106-preview",
@@ -33,11 +33,10 @@ export async function POST(req, res) {
     // tasks_part = response.split('TASKS:')[1].strip()
     // tasks = eval(tasks_part)  # using eval to convert string list representation to actual list
 
-    return NextResponse.json({ "response": completion.choices[0] })
+    return NextResponse.json({response: completion.choices[0]});
     // console.log(req)
     // const data = await req.json()
 
-    
-    // console.log(completion.choices[0]);
-    return ;
+
+    // console.log();
   }
