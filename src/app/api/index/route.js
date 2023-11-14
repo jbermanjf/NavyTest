@@ -1,11 +1,17 @@
 import { NextResponse } from 'next/server';
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
-const openai = new OpenAIApi(configuration);
+const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
 export async function GET() {
-    return NextResponse.json({ ok: process.env.OPENAI_API_KEY });
+    const completion = await openai.chat.completions.create({
+        messages: [{"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": "Who won the world series in 2020?"},
+            {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
+            {"role": "user", "content": "Where was it played?"}],
+        model: "gpt-3.5-turbo",
+      });
+    
+    console.log(completion.choices[0]);
+    return NextResponse.json({ ok: completion.choices[0] });
   }
